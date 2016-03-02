@@ -19,7 +19,7 @@ from GlyphsApp import *
 
 GlyphsReporterProtocol = objc.protocolNamed( "GlyphsReporter" )
 
-class showNextFontAnchors ( NSObject, GlyphsReporterProtocol ):
+class showAnchorsCompatibility ( NSObject, GlyphsReporterProtocol ):
 	
 	def init( self ):
 		try:
