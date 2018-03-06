@@ -1,21 +1,11 @@
-#!/usr/bin/env python
 # encoding: utf-8
 
-
-
-
 import objc
-from Foundation import *
-from AppKit import *
 import sys, os, re
 import math
 
-MainBundle = NSBundle.mainBundle()
-path = MainBundle.bundlePath() + "/Contents/Scripts"
-if not path in sys.path:
-	sys.path.append( path )
-
 from GlyphsApp import *
+from GlyphsApp.plugins import *
 
 GlyphsReporterProtocol = objc.protocolNamed( "GlyphsReporter" )
 
@@ -106,14 +96,11 @@ class showAnchorsCompatibility ( NSObject, GlyphsReporterProtocol ):
 		for currentAnchor in currentLayer.anchors:
 			check(currentAnchor)
 
-
-					
 	def roundDotForPoint( self, posX, posY, markerWidth ):
 		myRect = NSRect( ( posX - markerWidth * 0.5, posY - markerWidth * 0.5 ), ( markerWidth, markerWidth ) )
 		return NSBezierPath.bezierPathWithOvalInRect_(myRect)
 
 
-	
 	def drawBackgroundForLayer_( self, Layer ):
 		try:
 			NSColor.colorWithCalibratedRed_green_blue_alpha_( 0.0, 0.5, 0.3, 0.5 ).set()
