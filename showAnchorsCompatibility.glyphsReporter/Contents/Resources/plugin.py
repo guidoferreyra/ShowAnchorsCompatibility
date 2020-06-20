@@ -23,10 +23,6 @@ class showAnchorsCompatibility (ReporterPlugin):
 		scale = self.getScale()
 		zoomedHandleSize = HandleSize / scale
 
-		xHeight = thisFont.selectedFontMaster.xHeight
-		angle = thisFont.selectedFontMaster.italicAngle
-		offset = math.tan(math.radians(angle)) * xHeight/2
-
 		lista = []
 
 		for thisMaster in thisFont.masters: 
