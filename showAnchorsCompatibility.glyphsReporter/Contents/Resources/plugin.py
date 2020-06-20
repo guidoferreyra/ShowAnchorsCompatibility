@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+from __future__ import print_function
 import objc
 import sys, os, re
 import math
@@ -8,9 +9,10 @@ from GlyphsApp import *
 from GlyphsApp.plugins import *
 
 class showAnchorsCompatibility (ReporterPlugin):
+	@objc.python_method
 	def settings(self):
 		self.menuName = "Anchors Compatibility"
-	
+	@objc.python_method
 	def checkAnchors (self, Layer):
 
 		thisFont = Glyphs.font
@@ -20,10 +22,6 @@ class showAnchorsCompatibility (ReporterPlugin):
 		HandleSize = self.getHandleSize()
 		scale = self.getScale()
 		zoomedHandleSize = HandleSize / scale
-
-		xHeight = thisFont.selectedFontMaster.xHeight
-		angle = thisFont.selectedFontMaster.italicAngle
-		offset = math.tan(math.radians(angle)) * xHeight/2
 
 		lista = []
 
@@ -51,15 +49,16 @@ class showAnchorsCompatibility (ReporterPlugin):
 				redCircles.appendBezierPath_(self.roundDotForPoint(posX, posY, zoomedHandleSize*2.5))
 				redCircles.fill()
 
+	@objc.python_method
 	def roundDotForPoint(self, posX, posY, markerWidth):
 		myRect = NSRect((posX - markerWidth * 0.5, posY - markerWidth * 0.5), (markerWidth, markerWidth))
 		return NSBezierPath.bezierPathWithOvalInRect_(myRect)
 
-
+	@objc.python_method
 	def background(self, Layer):
 		try:
 			NSColor.colorWithCalibratedRed_green_blue_alpha_(0.0, 0.5, 0.3, 0.5).set()
 			self.checkAnchors(Layer)
 		except Exception as e:
 			import traceback
-			print traceback.format_exc()
+			print(traceback.format_exc())
